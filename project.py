@@ -1,3 +1,4 @@
+import os
 import urllib
 import jinja2
 import webapp2
@@ -67,7 +68,7 @@ class MainPage(webapp2.RequestHandler):
         if section_name == DEFAULT_SECTION_NAME.lower(): section_name = DEFAULT_SECTION_NAME
         comments_query = Comment.query(ancestor=section_key(section_name)).order(-Comment.date)
         num_comments = 10
-        comments = comments_query.fetch(num_comments)
+        comments_list = comments_query.fetch(num_comments)
 
         # If a person is logged in to Google's Services
         user = users.get_current_user()
@@ -81,7 +82,7 @@ class MainPage(webapp2.RequestHandler):
         
         template_values = {
             'user': user,
-            'comment': comments,
+            'comment': comments_list,
             'section_name': urllib.quote_plus(section_name),
             'url': url,
             'url_linktext': url_linktext,
@@ -100,9 +101,7 @@ class Section(webapp2.RequestHandler):
         # will be consistent.  However, the write rate should be limited to
         # ~1/second. 
         section_name = self.request.get('section_name', DEFAULT_SECTION_NAME)
-        
         comment = Comment(parent=section_key(section_name))
-
         if users.get_current_user():
             comment.author = Author(
                 identity=users.get_current_user().user_id(),
@@ -114,12 +113,10 @@ class Section(webapp2.RequestHandler):
 
         # Write to the Google Database
         comment.put()
-
         query_params = {'section_name': section_name}
         self.redirect('/?' + urllib.urlencode(query_params))
 
 #[END Comment Submission]
-
 
 app = webapp2.WSGIApplication([
     ('/', MainPage), 
