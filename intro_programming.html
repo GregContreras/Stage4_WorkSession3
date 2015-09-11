@@ -1,17 +1,11 @@
 <!DOCTYPE html>
-{% autoescape true %}
+{{ "{" }}% autoescape true %{{ "}" }}
 <html>
-
 <head>
-
   <meta charset="UTF-8">
-
   <title>UDACITY - INTRO TO PROGRAMMING</title>
-
   <link rel="stylesheet" href="stylesheets/main.css">
-
 </head>
-
   <body>
     <div class="table-of-contents">
       <h1>Table of Contents</h1>
@@ -1007,28 +1001,28 @@
             <div class="concept-description">
               <p>
                 Double curly braces which means print in the middle of your html code<br>
-                {{ variable }}
+                {{ "{{" }}" variable {{ "}}" }}
               <p>
           <div class="concept" id="lesson-4-7-4">   
             <div class="concept-title">STATEMENT SYNTAX</div>
             <div class="concept-description">
               <p>
-                {% statement%}<br>
-                {% end statement%}<br>
+                {{ "{" }}% statement%{{ "}" }}<br>
+                {{ "{" }}% end statement%{{ "}" }}<br>
                 Example:<br>
-                {%if name=="greg"%}<br>
+                {{ "{" }}%if name=="greg"%{{ "}" }}<br>
                   Hello, Greg!<br>
-                {% else%}<br>
+                {{ "{" }}% else%{{ "}" }}<br>
                   Who are you? = output<br>
-                {% end if %}<br>
+                {{ "{" }}% end if %{{ "}" }}<br>
               <p>
           <div class="concept" id="lesson-4-7-5">   
             <div class="concept-title">FOR LOOP SYNTAX</div>
             <div class="concept-description">
               <p>
-                {% for statement%}}<br>
+                {{ "{" }}% for statement%{{ "}" }}<br>
                   body<br>
-                {% end for%}<br>
+                {{ "{" }}% end for%{{ "}" }}<br>
               <p>
           <div class="concept" id="lesson-4-7-6">   
             <div class="concept-title">HELPFUL TIPS</div>
@@ -1043,7 +1037,7 @@
             <div class="concept-title">TEMPLATE INHERITANCE</div>
             <div class="concept-description">
               <p>
-                Use a {% block content %} to reuse html across pages.<br>
+                Use a {{ "{" }}% block content %{{ "}" }} to reuse html across pages.<br>
                 This will generate the html over and over again for you.
         </div>  
         <h3 id="lesson-4-8">Work Session 8: Databases</h3>
@@ -1128,13 +1122,11 @@
       <div class="lesson">
         <h3 id="user-comments">User Comments</h3>
         <div class="concept">
-
-          <a href="{{ url|safe }}">{{ url_linktext }}</a>
-
-          <form>Section Title:
+              <a href="{{ url|safe }}">{{ url_linktext }}</a>
+<!--           <form>Section Title:
             <input value="{{ section_name }}" name="section_name">
             <input type="submit" value="switch">
-          </form>
+          </form> -->
           <br><br>
           <form action="/section?section_name={{ section_name }}" method="post">
             <div>
@@ -1143,8 +1135,7 @@
             <input type="submit" value="Submit Comment">
           </form>
           <hr>
-
-          {% for content in comment %}
+          {% for comment in comment %}
             {% if comment.author %}
               <b>{{ comment.author.email }}
                 {% if user and user.user_id() == comment.author.identity %}
@@ -1161,7 +1152,6 @@
       <div>
       </p>
       </div>
-
   </body>
 </html>
-{% endautoescape %}
+{{"{"}}% endautoescape %{{"}"}}
