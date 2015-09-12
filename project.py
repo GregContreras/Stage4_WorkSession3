@@ -64,6 +64,7 @@ class Handler(webapp2.RequestHandler):
 # [START main_page]
 class MainPage(webapp2.RequestHandler):
     def get(self):
+        error = self.request.get('error','')
         section_name = self.request.get('section_name', DEFAULT_SECTION_NAME)
         if section_name == DEFAULT_SECTION_NAME.lower(): section_name = DEFAULT_SECTION_NAME
         comments_query = Comment.query(ancestor=section_key(section_name)).order(-Comment.date)
@@ -86,6 +87,7 @@ class MainPage(webapp2.RequestHandler):
             'section_name': urllib.quote_plus(section_name),
             'url': url,
             'url_linktext': url_linktext,
+            'error': error,
         }
 
         template = JINJA_ENVIRONMENT.get_template('intro_programming.html')
@@ -112,12 +114,22 @@ class Section(webapp2.RequestHandler):
         # Get the content from our request parameters, in this case, the message
         # is in the parameter 'content'
         comment.content = self.request.get('content')
-
-        # Write to the Google Database
-        comment.put()
-
+        
+        if comment.content:
+            comment.put()
+            #self.redirect(/)
+            #error = ""
+        else:
+             comment.put()
+        #else:
+            #error = "error"
+            #@self.redirect('error')
+            
+            
+        #query_params = {'error': error}
         query_params = {'section_name': section_name}
         self.redirect('/?' + urllib.urlencode(query_params))
+
 
 #[END Comment Submission]
 
