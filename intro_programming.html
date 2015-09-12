@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-{{ "{" }}% autoescape true %{{ "}" }}
+<!-- {{ "{" }}% autoescape true %{{ "}" }} -->
 <html>
+
 <head>
+
   <meta charset="UTF-8">
+
   <title>UDACITY - INTRO TO PROGRAMMING</title>
+
   <link rel="stylesheet" href="stylesheets/main.css">
+
 </head>
+
   <body>
     <div class="table-of-contents">
       <h1>Table of Contents</h1>
@@ -1139,6 +1145,7 @@
             {% if comment.author %}
               <b>{{ comment.author.email }}
                 {% if user and user.user_id() == comment.author.identity %}
+                
                   (You)
                 {% endif %}
               </b> wrote:
@@ -1154,4 +1161,4 @@
       </div>
   </body>
 </html>
-{{"{"}}% endautoescape %{{"}"}}
+<!-- {{"{"}}% endautoescape %{{"}"}} -->
