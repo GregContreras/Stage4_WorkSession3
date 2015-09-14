@@ -76,8 +76,8 @@ class MainPage(webapp2.RequestHandler):
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
-        else:
-            user = 'Anonymous Poster'
+       else:
+            user_name = 'Anonymous Poster'
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
         
@@ -88,6 +88,7 @@ class MainPage(webapp2.RequestHandler):
             'url': url,
             'url_linktext': url_linktext,
             'error': error,
+            'user_name=user.nickname()'
         }
 
         template = JINJA_ENVIRONMENT.get_template('intro_programming.html')
