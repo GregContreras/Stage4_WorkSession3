@@ -89,7 +89,7 @@ class MainPage(webapp2.RequestHandler):
             'url': url,
             'url_linktext': url_linktext,
             'error': error,
-            'user_name'=user.nickname(),
+            'user_name': user_name,
         }
 
         template = JINJA_ENVIRONMENT.get_template('intro_programming.html')
