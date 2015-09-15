@@ -64,7 +64,7 @@ class Handler(webapp2.RequestHandler):
 # [START main_page]
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        error = self.request.get('error','')
+        error_msg = self.request.get('error_msg', "")
         section_name = self.request.get('section_name', DEFAULT_SECTION_NAME)
         if section_name == DEFAULT_SECTION_NAME.lower(): section_name = DEFAULT_SECTION_NAME
         comments_query = Comment.query(ancestor=section_key(section_name)).order(-Comment.date)
@@ -88,7 +88,7 @@ class MainPage(webapp2.RequestHandler):
             'section_name': urllib.quote_plus(section_name),
             'url': url,
             'url_linktext': url_linktext,
-            'error': error,
+            'error_msg': error_msg,
             'user_name': user_name,
         }
 
@@ -115,21 +115,17 @@ class Section(webapp2.RequestHandler):
 
         # Get the content from our request parameters, in this case, the message
         # is in the parameter 'content'
-        comment.content = self.request.get('content')
+        comment.content = self.request.get('content').strip()
+        error_msg = "No blanks allowed, please enter a valid message!!!"
         
-        if comment.content:
+        if comment.content and not comment.content.isspace():
             comment.put()
-            #self.redirect(/)
-            #error = ""
+            error_msg = ""
         else:
+             error_msg 
              comment.put()
-        #else:
-            #error = "error"
-            #@self.redirect('error')
             
-            
-        #query_params = {'error': error}
-        query_params = {'section_name': section_name}
+        query_params = {'section_name': section_name, 'error_msg': error_msg}
         self.redirect('/?' + urllib.urlencode(query_params))
 
 
