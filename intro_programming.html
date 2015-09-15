@@ -1124,7 +1124,6 @@
 
         </div>
       </div>
-
       <div class="lesson">
         <h3 id="user-comments">User Comments</h3>
         <div class="concept">
@@ -1153,6 +1152,9 @@
               An anonymous person wrote:
             {% endif %}
             <blockquote>{{ comment.content }}</blockquote>
+            <div class="error_msg">
+                {{error_msg}}
+            </div>     
           {% endfor %}
         </div>        
       </div>
