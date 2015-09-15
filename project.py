@@ -115,7 +115,7 @@ class Section(webapp2.RequestHandler):
 
         # Get the content from our request parameters, in this case, the message
         # is in the parameter 'content'
-        comment.content = self.request.get('content').strip()
+        comment.content = self.request.get('content')
         error_msg = "No blanks allowed, please enter a valid message!!!"
         
         if comment.content and not comment.content.isspace():
